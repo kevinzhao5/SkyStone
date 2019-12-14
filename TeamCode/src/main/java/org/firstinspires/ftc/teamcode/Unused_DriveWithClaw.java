@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="DriveWithClaw", group="OpMode")
-public class DriveWithClaw extends OpMode {
+@TeleOp(name="Unused_DriveWithClaw", group="OpMode")
+public class Unused_DriveWithClaw extends OpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();

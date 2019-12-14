@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "ClawTest", group = "OpMode")
-public class ClawTest extends OpMode {
+@TeleOp(name = "Unused_ClawTest", group = "OpMode")
+public class Unused_ClawTest extends OpMode {
 
     //Servos
     //Servo claw;

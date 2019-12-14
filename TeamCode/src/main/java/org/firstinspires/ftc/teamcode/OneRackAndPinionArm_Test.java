@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="OneArmTest", group="OpMode")
-public class OneArmTest extends OpMode {
+@TeleOp(name="OneRackAndPinionArm_Test", group="OpMode")
+public class OneRackAndPinionArm_Test extends OpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
