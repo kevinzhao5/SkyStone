@@ -28,6 +28,10 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
     //Sensors
     ColorSensor color; //port 12c
 
+    //Variables
+    int minPos = -3500;
+    int maxPos = 500;
+
     /**
      *
      */
@@ -80,12 +84,22 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
 
         waitForStart();
 
-        while (color.blue() < 200) {
+        moveArm(-500);
+
+        extension.setPosition(0);
+/*
+        pause(3500);
+
+        moveArm(-1382);
+
+        pause(4000);
+
+        while (color.red() < 200) {
             drive(1, 0);
         }
 
         setAllDriveMotorPower(0);
-
+*/
     }
 
     public void setAllDriveMotorPower(double power) {
@@ -113,4 +127,31 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
         rightBack.setPower(x - y);
     }
 
+    public void moveArm(int distance) {
+
+        //Move the arm up or down
+        int position1 = rnpUp1.getCurrentPosition();
+        int position2 = rnpUp2.getCurrentPosition();
+        int newPos1 = distance + position1;
+        if (minPos < newPos1 && newPos1 < maxPos) {
+            rnpUp1.setTargetPosition(newPos1);
+            rnpUp1.setPower(1);
+        }
+
+        int newPos2 = distance + position2;
+        if (minPos < newPos2 && newPos2 < maxPos) {
+            rnpUp2.setTargetPosition(newPos2);
+            rnpUp2.setPower(1);
+        }
+
+    }
+
+    public void pause(long ms) {
+        try {
+            wait(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -22,8 +23,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 */
 
-@TeleOp(name="FinalDrive", group="OpMode")
-public class FinalDrive extends OpMode{
+@TeleOp(name="CR_Test", group="OpMode")
+public class CR_Test extends OpMode{
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -39,7 +40,7 @@ public class FinalDrive extends OpMode{
     //Servos
     Servo intakeLeft; //port 1
     Servo intakeRight; //port 0
-    Servo extension; //port 2
+    CRServo extension; //port 2
 
     //Variables
     int minPos = -4000;
@@ -67,7 +68,7 @@ public class FinalDrive extends OpMode{
         //Initialize Servos
         intakeLeft = hardwareMap.get(Servo.class, "intakeLeft");
         intakeRight = hardwareMap.get(Servo.class, "intakeRight");
-        extension = hardwareMap.get(Servo.class, "extension");
+        extension = hardwareMap.get(CRServo.class, "extension");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -88,7 +89,7 @@ public class FinalDrive extends OpMode{
         //Set direction of the Servos
         intakeLeft.setDirection(Servo.Direction.REVERSE);
         intakeRight.setDirection(Servo.Direction.FORWARD);
-        extension.setDirection(Servo.Direction.REVERSE);
+        extension.setDirection(CRServo.Direction.REVERSE);
 
         //Set run mode
         rnpUp1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -213,11 +214,11 @@ public class FinalDrive extends OpMode{
 
         //Control the extension system
         if (gamepad2.left_bumper) {
-            extension.setPosition(0);
+            extension.setPower(-1);
         } else if (gamepad2.right_bumper) {
-            extension.setPosition(1);
+            extension.setPower(1);
         } else {
-            extension.setPosition(0.5);
+            extension.setPower(0);
         }
 
         //Display data
