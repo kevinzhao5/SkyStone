@@ -131,7 +131,7 @@ public class FinalDrive extends OpMode{
 
         //Turning
         if (Math.abs(gamepad1.right_stick_x) >= 0.000001) {
-            setAllDriveMotorPower(-gamepad1.right_stick_x);
+            setAllDriveMotorPower(-gamepad1.right_stick_x * speedMultiplier);
         }
 
         //If A is not pressed
