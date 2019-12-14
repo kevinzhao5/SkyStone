@@ -3,68 +3,43 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "Intake_Test", group = "OpMode")
 public class Intake_Test extends OpMode {
 
+    //Objects
+    ElapsedTime runtime;
+
     //Servos
-    //Servo claw;
     Servo clawLeft;
     Servo clawRight;
-
-    //Variables
-    /*boolean aPressed;
-    boolean closed;*/
-
-
 
     @Override
     public void init() {
 
-        //Initialize Servo
-        /*claw = hardwareMap.get(Servo.class, "claw");
-
-        //Set servo direction
-        claw.setDirection(Servo.Direction.FORWARD);
-
-        //Initial position
-        claw.setPosition(0.2);
-
-        //Initialize variables
-        aPressed = false;
-        closed = false;*/
-
         clawLeft = hardwareMap.get(Servo.class, "clawLeft");
         clawRight = hardwareMap.get(Servo.class, "clawRight");
 
-
         clawRight.setDirection(Servo.Direction.FORWARD);
         clawLeft.setDirection(Servo.Direction.REVERSE);
+
+        runtime = new ElapsedTime();
+
+        telemetry.addData("Status", "Initialized");
+
     }
 
     @Override
+    public void start() {
+
+        runtime.reset();
+
+    }
+
+
+    @Override
     public void loop(){
-
-        //Control claw
-        /*if(!gamepad1.a) aPressed = false;
-        if(gamepad1.a && !aPressed)
-        {
-            aPressed = true;
-            if(closed)
-            {
-                claw.setPosition(0.7);
-                closed = false;
-            }
-            else
-            {
-                claw.setPosition(0.2);
-                closed = true;
-            }
-        }
-
-        //Add data
-        telemetry.addData("X: ", gamepad1.left_stick_x);
-        telemetry.addData("y: ", gamepad1.left_stick_y);*/
 
         if(gamepad1.right_stick_y > 0)
         {
@@ -79,6 +54,9 @@ public class Intake_Test extends OpMode {
             clawRight.setPosition(0.5);
             clawLeft.setPosition(0.5);
         }
+
+        //Display data
+        telemetry.addData("Runtime: ", getRuntime());
 
     }
 }

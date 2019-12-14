@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Unused_DriveWithClaw extends OpMode {
 
     //Objects
-    ElapsedTime runtime = new ElapsedTime();
+    ElapsedTime runtime;
 
     //Motors
     DcMotor leftBack; //port 3
@@ -79,6 +79,7 @@ public class Unused_DriveWithClaw extends OpMode {
         rnpOut.setPosition(0.2);
 
         //Initialize the variables
+        runtime = new ElapsedTime();
         speedMultiplier = 1;
         aPressed_1 = false;
         aPressed_2 = false;
