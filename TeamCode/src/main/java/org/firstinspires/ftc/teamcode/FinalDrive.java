@@ -42,8 +42,8 @@ public class FinalDrive extends OpMode{
     Servo extension;
 
     //Variables
-    int minPos = 0;
-    int maxPos = 3800;
+    int minPos = -4000;
+    int maxPos = 0;
 
     double speedMultiplier = 1;
     boolean aPressed = false;
