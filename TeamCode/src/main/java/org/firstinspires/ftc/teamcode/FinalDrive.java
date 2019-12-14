@@ -33,13 +33,13 @@ public class FinalDrive extends OpMode{
     DcMotor leftFront; //port 0
     DcMotor rightBack; //port 2
     DcMotor rightFront; //port 1
-    DcMotor rnpUp1;
-    DcMotor rnpUp2;
+    DcMotor rnpUp1; //port 1
+    DcMotor rnpUp2; //port 2
 
     //Servos
-    Servo intakeLeft;
-    Servo intakeRight;
-    Servo extension;
+    Servo intakeLeft; //port 1
+    Servo intakeRight; //port 0
+    Servo extension; //port 2
 
     //Variables
     int minPos = -4000;
@@ -141,7 +141,7 @@ public class FinalDrive extends OpMode{
 
         //Toggle the speed multiplier
         if (gamepad1.a && !aPressed) {
-            speedMultiplier = 1.2 - speedMultiplier;
+            speedMultiplier = 1.3 - speedMultiplier;
             aPressed = true;
         }
 
