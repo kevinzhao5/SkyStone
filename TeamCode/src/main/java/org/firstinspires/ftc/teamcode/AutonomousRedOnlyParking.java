@@ -85,9 +85,15 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
 
         waitForStart();
 
-        drive(0, 1);
+        drive(0, 0.32);
 
-        while (color.red() < 100) {}
+        long initTime = System.nanoTime();
+
+        while (color.red() < 200 && initTime + 3000000000l > System.nanoTime()) {
+            telemetry.addData("color", color.red());
+        }
+
+        pause(0.2);
 
         setAllDriveMotorPower(0);
 
@@ -137,7 +143,7 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
 
     }
 
-    public void pause(long s) {
+    public void pause(double s) {
         long initTime = System.nanoTime();
         s *= 1000000000;
         while (System.nanoTime() < initTime + s) {

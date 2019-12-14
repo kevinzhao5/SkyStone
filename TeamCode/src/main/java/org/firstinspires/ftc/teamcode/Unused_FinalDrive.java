@@ -22,8 +22,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 */
 
-@TeleOp(name="FinalDrive", group="OpMode")
-public class FinalDrive extends OpMode{
+@TeleOp(name="Unused_FinalDrive", group="OpMode")
+public class Unused_FinalDrive extends OpMode{
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();

@@ -23,8 +23,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 */
 
-@TeleOp(name="CR_Test", group="OpMode")
-public class CR_Test extends OpMode{
+@TeleOp(name="CompleteDrive", group="OpMode")
+public class CompleteDrive extends OpMode{
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
