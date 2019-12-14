@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousDepotRed_Simple", group="Autonomous")
-public class AutonomousDepotRed_Simple extends LinearOpMode {
+@Autonomous(name="AutonomousRedOnlyParking", group="Autonomous")
+public class AutonomousRedOnlyParking extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -87,22 +87,10 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
 
         drive(0, 1);
 
-        pause(3);
+        while (color.red() < 100) {}
 
         setAllDriveMotorPower(0);
-/*
-        pause(3500);
 
-        moveArm(-1382);
-
-        pause(4000);
-
-        while (color.red() < 200) {
-            drive(1, 0);
-        }
-
-        setAllDriveMotorPower(0);
-*/
     }
 
     public void setAllDriveMotorPower(double power) {
