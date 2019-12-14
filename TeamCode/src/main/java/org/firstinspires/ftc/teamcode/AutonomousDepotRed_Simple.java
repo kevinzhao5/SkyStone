@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -24,6 +25,9 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
     Servo intakeRight; //port 0
     Servo extension; //port 2
 
+    //Sensors
+    ColorSensor color; //port 12c
+
     /**
      *
      */
@@ -42,6 +46,9 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
         intakeLeft = hardwareMap.get(Servo.class, "intakeLeft");
         intakeRight = hardwareMap.get(Servo.class, "intakeRight");
         extension = hardwareMap.get(Servo.class, "extension");
+
+        //Initialize color sensor
+        color = hardwareMap.get(ColorSensor.class, "color");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -73,7 +80,11 @@ public class AutonomousDepotRed_Simple extends LinearOpMode {
 
         waitForStart();
 
+        while (color.blue() < 200) {
+            drive(1, 0);
+        }
 
+        setAllDriveMotorPower(0);
 
     }
 
