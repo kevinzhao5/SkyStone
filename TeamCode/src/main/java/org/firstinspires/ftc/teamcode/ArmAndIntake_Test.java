@@ -88,7 +88,7 @@ public class ArmAndIntake_Test extends OpMode{
 
         //Change limits
         if (gamepad2.dpad_down && !downPressed) {
-            maxPos -= 100;
+            maxPos -= 1000;
             downPressed = true;
         }
         if (!gamepad2.dpad_down) {
@@ -96,7 +96,7 @@ public class ArmAndIntake_Test extends OpMode{
         }
 
         if (gamepad2.dpad_up && !upPressed) {
-            maxPos += 100;
+            maxPos += 1000;
             upPressed = true;
         }
         if (!gamepad2.dpad_up) {
@@ -104,7 +104,7 @@ public class ArmAndIntake_Test extends OpMode{
         }
 
         if (gamepad2.dpad_left && !leftPressed) {
-            minPos -= 100;
+            minPos -= 1000;
             leftPressed = true;
         }
         if (!gamepad2.dpad_left) {
@@ -112,7 +112,7 @@ public class ArmAndIntake_Test extends OpMode{
         }
 
         if (gamepad2.dpad_right && !rightPressed) {
-            minPos += 100;
+            minPos += 1000;
             rightPressed = true;
         }
         if (!gamepad2.dpad_right) {
