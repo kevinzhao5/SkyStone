@@ -12,17 +12,17 @@ public class Intake_Test extends OpMode {
     ElapsedTime runtime;
 
     //Servos
-    Servo clawLeft;
-    Servo clawRight;
+    Servo intakeLeft;
+    Servo intakeRight;
 
     @Override
     public void init() {
 
-        clawLeft = hardwareMap.get(Servo.class, "clawLeft");
-        clawRight = hardwareMap.get(Servo.class, "clawRight");
+        intakeLeft = hardwareMap.get(Servo.class, "intakeLeft");
+        intakeRight = hardwareMap.get(Servo.class, "intakeRight");
 
-        clawRight.setDirection(Servo.Direction.FORWARD);
-        clawLeft.setDirection(Servo.Direction.REVERSE);
+        intakeLeft.setDirection(Servo.Direction.REVERSE);
+        intakeRight.setDirection(Servo.Direction.FORWARD);
 
         runtime = new ElapsedTime();
 
@@ -39,20 +39,20 @@ public class Intake_Test extends OpMode {
 
 
     @Override
-    public void loop(){
+    public void loop() {
 
-        if(gamepad1.right_stick_y > 0)
+        if(gamepad2.right_stick_y > 0)
         {
-            clawRight.setPosition(1);
-            clawLeft.setPosition(1);
+            intakeRight.setPosition(1);
+            intakeLeft.setPosition(1);
         }
-        else if(gamepad1.right_stick_y < 0) {
-            clawRight.setPosition(0);
-            clawLeft.setPosition(0);
+        else if(gamepad2.right_stick_y < 0) {
+            intakeRight.setPosition(0);
+            intakeLeft.setPosition(0);
         }
         else {
-            clawRight.setPosition(0.5);
-            clawLeft.setPosition(0.5);
+            intakeRight.setPosition(0.5);
+            intakeLeft.setPosition(0.5);
         }
 
         //Display data
