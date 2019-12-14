@@ -41,6 +41,7 @@ public class Intake_Test extends OpMode {
     @Override
     public void loop() {
 
+        //Control servos for intake
         if(gamepad2.right_stick_y > 0)
         {
             intakeRight.setPosition(1);

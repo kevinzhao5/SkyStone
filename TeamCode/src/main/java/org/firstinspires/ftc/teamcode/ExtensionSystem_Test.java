@@ -38,6 +38,7 @@ public class ExtensionSystem_Test extends OpMode {
     @Override
     public void loop() {
 
+        //Control the extension system
         if (gamepad2.left_bumper) {
             extension.setPosition(0);
         } else if (gamepad2.right_bumper) {
@@ -45,6 +46,7 @@ public class ExtensionSystem_Test extends OpMode {
         } else {
             extension.setPosition(0.5);
         }
+
         //Display data
         telemetry.addData("Runtime: ", getRuntime());
 
