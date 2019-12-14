@@ -150,7 +150,7 @@ public class FinalDrive extends OpMode{
         //Move the arm up and down
         int position1 = rnpUp1.getCurrentPosition();
         int position2 = rnpUp2.getCurrentPosition();
-        double pwr = -gamepad2.left_stick_y;
+        double pwr = gamepad2.left_stick_y;
         int newPos1 = (int) (pwr * 200) + position1;
         if (minPos < newPos1 && newPos1 < maxPos) {
             rnpUp1.setTargetPosition(newPos1);
