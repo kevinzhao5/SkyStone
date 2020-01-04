@@ -83,13 +83,16 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
         //Tell user that initialization is complete
         telemetry.addData("Status", "Initialized");
 
+        telemetry.addData("red", color.red());
+        telemetry.addData("green", color.green());
+        telemetry.addData("blue", color.blue());
         waitForStart();
 
         drive(0, 0.32);
 
         long initTime = System.nanoTime();
 
-        while (color.red() < 200 && initTime + 3000000000l > System.nanoTime()) {
+        while (color.red() < 200 || color.red() > 200 && color.blue() > 200 && color.green() > 200 && initTime + 3000000000l > System.nanoTime()) {
             telemetry.addData("color", color.red());
         }
 
