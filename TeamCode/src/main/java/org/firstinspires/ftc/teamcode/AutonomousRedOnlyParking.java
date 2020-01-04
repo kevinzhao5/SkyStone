@@ -33,9 +33,7 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
     int minPos = -3500;
     int maxPos = 500;
 
-    /**
-     *
-     */
+
     @Override
     public void runOpMode() {
 
@@ -88,17 +86,18 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
         telemetry.addData("blue", color.blue());
         waitForStart();
 
-        drive(0, 0.32);
+        //drive(0, 0.32);
 
         long initTime = System.nanoTime();
+        while(initTime + 3000000000l > System.nanoTime()) {
+            while (color.red() < 200 || color.red() > 200 && color.blue() > 200 && color.green() > 200) {
+                telemetry.addData("color", color.red());
+            }
 
-        while (color.red() < 200 || color.red() > 200 && color.blue() > 200 && color.green() > 200 && initTime + 3000000000l > System.nanoTime()) {
-            telemetry.addData("color", color.red());
+            pause(0.2);
+
+            setAllDriveMotorPower(0);
         }
-
-        pause(0.2);
-
-        setAllDriveMotorPower(0);
 
     }
 
