@@ -16,8 +16,8 @@ public class IntakeTest extends OpMode {
     DcMotor rightBack; //port 2
     DcMotor rightFront; //port 1
 
-    DcMotor leftWheel; //port 1
-    DcMotor rightWheel; //port 2
+    DcMotor leftWheel; //port 2
+    DcMotor rightWheel; //port 1
 
     //Variables
     double speedMultiplier;

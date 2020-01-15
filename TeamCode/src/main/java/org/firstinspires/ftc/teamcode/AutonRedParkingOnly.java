@@ -17,8 +17,8 @@ public class AutonRedParkingOnly extends LinearOpMode {
     DcMotor rightBack; //port 2
     DcMotor rightFront; //port 1
 
-    DcMotor leftWheel; //port 1
-    DcMotor rightWheel; //port 2
+    DcMotor leftWheel; //port 2
+    DcMotor rightWheel; //port 1
 
     //Sensors
     ColorSensor color; //port 12c
