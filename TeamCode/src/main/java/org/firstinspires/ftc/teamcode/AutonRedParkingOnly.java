@@ -3,12 +3,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousRedOnlyParking", group="Autonomous")
-public class AutonomousRedOnlyParking extends LinearOpMode {
+@Autonomous(name="AutonRedParkingOnly", group="Autonomous")
+public class AutonRedParkingOnly extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -18,21 +16,12 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
     DcMotor leftFront; //port 0
     DcMotor rightBack; //port 2
     DcMotor rightFront; //port 1
-    DcMotor rnpUp1; //port 1
-    DcMotor rnpUp2; //port 2
 
-    //Servos
-    Servo intakeLeft; //port 1
-    Servo intakeRight; //port 0
-    CRServo extension; //port 2
+    DcMotor leftWheel; //port 1
+    DcMotor rightWheel; //port 2
 
     //Sensors
     ColorSensor color; //port 12c
-
-    //Variables
-    int minPos = -3500;
-    int maxPos = 500;
-
 
     @Override
     public void runOpMode() {
@@ -42,41 +31,30 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rnpUp1 = hardwareMap.get(DcMotor.class, "rnpUp1");
-        rnpUp2 = hardwareMap.get(DcMotor.class, "rnpUp2");
 
-        //Initialize Servos
-        intakeLeft = hardwareMap.get(Servo.class, "intakeLeft");
-        intakeRight = hardwareMap.get(Servo.class, "intakeRight");
-        extension = hardwareMap.get(CRServo.class, "extension");
-
-        //Initialize color sensor
-        color = hardwareMap.get(ColorSensor.class, "color");
+        leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
+        rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rnpUp1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rnpUp2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Set directions of the motors
         leftBack.setDirection(DcMotor.Direction.FORWARD);
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-        rnpUp1.setDirection(DcMotor.Direction.REVERSE);
-        rnpUp2.setDirection(DcMotor.Direction.FORWARD);
 
-        //Set direction of the Servos
-        intakeLeft.setDirection(Servo.Direction.REVERSE);
-        intakeRight.setDirection(Servo.Direction.FORWARD);
-        extension.setDirection(CRServo.Direction.REVERSE);
+        leftWheel.setDirection(DcMotor.Direction.FORWARD);
+        rightWheel.setDirection(DcMotor.Direction.REVERSE);
 
-        //Set run mode
-        rnpUp1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rnpUp2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //Initialize color sensor
+        color = hardwareMap.get(ColorSensor.class, "color");
 
         //Tell user that initialization is complete
         telemetry.addData("Status", "Initialized");
@@ -84,20 +62,18 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
         telemetry.addData("red", color.red());
         telemetry.addData("green", color.green());
         telemetry.addData("blue", color.blue());
+
         waitForStart();
 
-        //drive(0, 0.32);
-
         long initTime = System.nanoTime();
-        while(initTime + 3000000000l > System.nanoTime()) {
-            while (color.red() < 200 || color.red() > 200 && color.blue() > 200 && color.green() > 200) {
-                telemetry.addData("color", color.red());
-            }
 
-            pause(0.2);
-
-            setAllDriveMotorPower(0);
+        while ((color.red() < 200 || (color.red() > 200 && color.blue() > 200 && color.green() > 200)) && initTime + 3000000000l > System.nanoTime()) {
+            telemetry.addData("color", color.red());
         }
+
+        pause(0.2);
+
+        setAllDriveMotorPower(0);
 
     }
 
@@ -124,25 +100,6 @@ public class AutonomousRedOnlyParking extends LinearOpMode {
         rightFront.setPower(-x - y);
         leftBack.setPower(x + y);
         rightBack.setPower(x - y);
-    }
-
-    public void moveArm(int distance) {
-
-        //Move the arm up or down
-        int position1 = rnpUp1.getCurrentPosition();
-        int position2 = rnpUp2.getCurrentPosition();
-        int newPos1 = distance + position1;
-        if (minPos < newPos1 && newPos1 < maxPos) {
-            rnpUp1.setTargetPosition(newPos1);
-            rnpUp1.setPower(1);
-        }
-
-        int newPos2 = distance + position2;
-        if (minPos < newPos2 && newPos2 < maxPos) {
-            rnpUp2.setTargetPosition(newPos2);
-            rnpUp2.setPower(1);
-        }
-
     }
 
     public void pause(double s) {

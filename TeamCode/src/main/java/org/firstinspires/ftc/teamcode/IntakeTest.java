@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="WheelIntakeTest", group="OpMode")
-public class WheelIntakeTest extends OpMode {
+@TeleOp(name="IntakeTest", group="OpMode")
+public class IntakeTest extends OpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();

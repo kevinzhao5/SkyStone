@@ -2,10 +2,29 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="DriveWithRackAndPinionArm", group="OpMode")
-public class DriveWithRackAndPinionArm extends OpMode {
+/*
+
+    Controlling the robot:
+
+    Gamepad1(Driving):
+        Left joystick to move the robot
+        Right joystick to turn
+        Press A to toggle speed multiplier
+
+    Gamepad2(Claw/Claw Arm):
+        Left joystick to move the claw arm up and down
+        Left gamepad to change min and max limits
+        Right joystick (move in y direction) to spin intake wheels
+        Left and right bumpers to extend and retract the extension arm
+
+*/
+
+@TeleOp(name="Dilapidated_CompleteDrive", group="OpMode")
+public class Dilapidated_CompleteDrive extends OpMode{
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -15,17 +34,21 @@ public class DriveWithRackAndPinionArm extends OpMode {
     DcMotor leftFront; //port 0
     DcMotor rightBack; //port 2
     DcMotor rightFront; //port 1
+    DcMotor rnpUp1; //port 1
+    DcMotor rnpUp2; //port 2
 
-    DcMotor rnpUp1;
-    DcMotor rnpUp2;
+    //Servos
+    Servo intakeLeft; //port 1
+    Servo intakeRight; //port 0
+    CRServo extension; //port 2
 
     //Variables
-    int minPos;
-    int maxPos;
+    int minPos = -4000;
+    int maxPos = 660;
 
-    double speedMultiplier;
+    double speedMultiplier = 1;
+    boolean aPressed = false;
 
-    boolean aPressed_1;
     boolean downPressed = false;
     boolean upPressed = false;
     boolean leftPressed = false;
@@ -39,16 +62,19 @@ public class DriveWithRackAndPinionArm extends OpMode {
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-
         rnpUp1 = hardwareMap.get(DcMotor.class, "rnpUp1");
         rnpUp2 = hardwareMap.get(DcMotor.class, "rnpUp2");
+
+        //Initialize Servos
+        intakeLeft = hardwareMap.get(Servo.class, "intakeLeft");
+        intakeRight = hardwareMap.get(Servo.class, "intakeRight");
+        extension = hardwareMap.get(CRServo.class, "extension");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         rnpUp1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rnpUp2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -57,19 +83,17 @@ public class DriveWithRackAndPinionArm extends OpMode {
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-
         rnpUp1.setDirection(DcMotor.Direction.REVERSE);
         rnpUp2.setDirection(DcMotor.Direction.FORWARD);
+
+        //Set direction of the Servos
+        intakeLeft.setDirection(Servo.Direction.REVERSE);
+        intakeRight.setDirection(Servo.Direction.FORWARD);
+        extension.setDirection(CRServo.Direction.REVERSE);
 
         //Set run mode
         rnpUp1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rnpUp2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        //Initialize the variables
-        speedMultiplier = 1;
-        aPressed_1 = false;
-        minPos = 0;
-        maxPos = 3800;
 
         //Tell user that initialization is complete
         telemetry.addData("Status", "Initialized");
@@ -83,6 +107,7 @@ public class DriveWithRackAndPinionArm extends OpMode {
 
     @Override
     public void loop() {
+
         //Drive the robot
 
         //Normalize the values if the sum is greater than one to fit motor power
@@ -107,26 +132,26 @@ public class DriveWithRackAndPinionArm extends OpMode {
 
         //Turning
         if (Math.abs(gamepad1.right_stick_x) >= 0.000001) {
-            setAllDriveMotorPower(-gamepad1.right_stick_x);
+            setAllDriveMotorPower(-gamepad1.right_stick_x * speedMultiplier);
         }
 
-        //If A on gamepad1 is not pressed
+        //If A is not pressed
         if (!gamepad1.a) {
-            aPressed_1 = false;
+            aPressed = false;
         }
 
         //Toggle the speed multiplier
-        if (gamepad1.a && !aPressed_1) {
-            speedMultiplier = 1.2 - speedMultiplier;
-            aPressed_1 = true;
+        if (gamepad1.a && !aPressed) {
+            speedMultiplier = 1.3 - speedMultiplier;
+            aPressed = true;
         }
 
-        //Moving the claw arm
+        //Operate intake and arm
 
         //Move the arm up and down
         int position1 = rnpUp1.getCurrentPosition();
         int position2 = rnpUp2.getCurrentPosition();
-        double pwr = -gamepad2.left_stick_y;
+        double pwr = gamepad2.left_stick_y;
         int newPos1 = (int) (pwr * 200) + position1;
         if (minPos < newPos1 && newPos1 < maxPos) {
             rnpUp1.setTargetPosition(newPos1);
@@ -141,7 +166,7 @@ public class DriveWithRackAndPinionArm extends OpMode {
 
         //Change limits
         if (gamepad2.dpad_down && !downPressed) {
-            maxPos -= 100;
+            maxPos -= 1000;
             downPressed = true;
         }
         if (!gamepad2.dpad_down) {
@@ -149,7 +174,7 @@ public class DriveWithRackAndPinionArm extends OpMode {
         }
 
         if (gamepad2.dpad_up && !upPressed) {
-            maxPos += 100;
+            maxPos += 1000;
             upPressed = true;
         }
         if (!gamepad2.dpad_up) {
@@ -157,7 +182,7 @@ public class DriveWithRackAndPinionArm extends OpMode {
         }
 
         if (gamepad2.dpad_left && !leftPressed) {
-            minPos -= 100;
+            minPos -= 1000;
             leftPressed = true;
         }
         if (!gamepad2.dpad_left) {
@@ -165,19 +190,41 @@ public class DriveWithRackAndPinionArm extends OpMode {
         }
 
         if (gamepad2.dpad_right && !rightPressed) {
-            minPos += 100;
+            minPos += 1000;
             rightPressed = true;
         }
         if (!gamepad2.dpad_right) {
             rightPressed = false;
         }
 
+        //Control servos for intake
+        if(gamepad2.right_stick_y > 0)
+        {
+            intakeRight.setPosition(1);
+            intakeLeft.setPosition(1);
+        }
+        else if(gamepad2.right_stick_y < 0) {
+            intakeRight.setPosition(0);
+            intakeLeft.setPosition(0);
+        }
+        else {
+            intakeRight.setPosition(0.5);
+            intakeLeft.setPosition(0.5);
+        }
+
+        //Control the extension system
+        if (gamepad2.left_bumper) {
+            extension.setPower(-1);
+        } else if (gamepad2.right_bumper) {
+            extension.setPower(1);
+        } else {
+            extension.setPower(0);
+        }
+
         //Display data
         telemetry.addData("Runtime: ", getRuntime());
-
-        telemetry.addData("x: ", x);
-        telemetry.addData("y: ", y);
-        telemetry.addData("speed multiplier: ", speedMultiplier);
+        telemetry.addData("min pos: ", minPos);
+        telemetry.addData("max pos: ", maxPos);
 
         telemetry.addData("position 1: ", position1);
         telemetry.addData("new pos 1: ", newPos1);
@@ -192,20 +239,5 @@ public class DriveWithRackAndPinionArm extends OpMode {
         leftBack.setPower(power);
         rightBack.setPower(power);
     }
-
-    /*
-
-    Controlling the robot:
-
-    Gamepad1(Driving):
-        Left joystick to move the robot
-        Right joystick to turn
-        Press A to toggle speed multiplier
-
-    Gamepad2(Claw/Claw Arm):
-        Left joystick to move the claw arm up and down
-        Left gamepad to change min and max limits
-
-     */
 
 }
