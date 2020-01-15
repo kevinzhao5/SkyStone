@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonBlueParkingOnly", group="Autonomous")
-public class AutonBlueParkingOnly extends LinearOpMode {
+@Autonomous(name="AutonParkingOnly", group="Autonomous")
+public class AutonParkingOnly extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -19,9 +19,6 @@ public class AutonBlueParkingOnly extends LinearOpMode {
 
     DcMotor leftWheel; //port 2
     DcMotor rightWheel; //port 1
-
-    //Sensors
-    ColorSensor color; //port 12c
 
     @Override
     public void runOpMode() {
@@ -53,25 +50,14 @@ public class AutonBlueParkingOnly extends LinearOpMode {
         leftWheel.setDirection(DcMotor.Direction.FORWARD);
         rightWheel.setDirection(DcMotor.Direction.REVERSE);
 
-        //Initialize color sensor
-        color = hardwareMap.get(ColorSensor.class, "color");
-
         //Tell user that initialization is complete
         telemetry.addData("Status", "Initialized");
 
-        telemetry.addData("red", color.red());
-        telemetry.addData("green", color.green());
-        telemetry.addData("blue", color.blue());
-
         waitForStart();
 
-        long initTime = System.nanoTime();
+        drive(0, -0.5);
 
-        while ((color.blue() < 200 || (color.red() > 200 && color.blue() > 200 && color.green() > 200)) && initTime + 3000000000l > System.nanoTime()) {
-            telemetry.addData("blue: ", color.blue());
-        }
-
-        pause(0.2);
+        pause(1.4);
 
         setAllDriveMotorPower(0);
 
