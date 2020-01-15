@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonRedParkingOnly", group="Autonomous")
-public class AutonRedParkingOnly extends LinearOpMode {
+@Autonomous(name="AutonBlueParkingOnly", group="Autonomous")
+public class AutonBlueParkingOnly extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -67,8 +67,8 @@ public class AutonRedParkingOnly extends LinearOpMode {
 
         long initTime = System.nanoTime();
 
-        while ((color.red() < 200 || (color.red() > 200 && color.blue() > 200 && color.green() > 200)) && initTime + 3000000000l > System.nanoTime()) {
-            telemetry.addData("red: ", color.red());
+        while ((color.blue() < 200 || (color.red() > 200 && color.blue() > 200 && color.green() > 200)) && initTime + 3000000000l > System.nanoTime()) {
+            telemetry.addData("blue: ", color.blue());
         }
 
         pause(0.2);
