@@ -20,6 +20,9 @@ public class AutonParkingOnly extends LinearOpMode {
     DcMotor leftWheel; //port 2
     DcMotor rightWheel; //port 1
 
+    //Constants
+    final double secondsPerCm = 0.00576923076;
+
     @Override
     public void runOpMode() {
 
@@ -55,11 +58,7 @@ public class AutonParkingOnly extends LinearOpMode {
 
         waitForStart();
 
-        drive(0, -0.5);
-
-        pause(1.4);
-
-        setAllDriveMotorPower(0);
+        driveForward(130, 0.5);
 
     }
 
@@ -94,6 +93,30 @@ public class AutonParkingOnly extends LinearOpMode {
         while (System.nanoTime() < initTime + s) {
 
         }
+    }
+
+    public void driveForward(double cm, double power) {
+        drive(0, -power);
+        pause(cm * secondsPerCm * (1 / power));
+        setAllDriveMotorPower(0);
+    }
+
+    public void driveBackward(double cm, double power) {
+        drive(0, power);
+        pause(cm * secondsPerCm * (1 / power));
+        setAllDriveMotorPower(0);
+    }
+
+    public void driveLeft(double cm, double power) {
+        drive(-power, 0);
+        pause(cm * secondsPerCm * (1 / power));
+        setAllDriveMotorPower(0);
+    }
+
+    public void driveRight(double cm, double power) {
+        drive(power, 0);
+        pause(cm * secondsPerCm * (1 / power));
+        setAllDriveMotorPower(0);
     }
 
 }

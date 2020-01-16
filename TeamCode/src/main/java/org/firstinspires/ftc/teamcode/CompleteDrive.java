@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -33,9 +32,6 @@ public class CompleteDrive extends OpMode{
 
     DcMotor leftWheel; //port 2
     DcMotor rightWheel; //port 1
-
-    //Sensors
-    ColorSensor color; //port 12c
 
     //Variables
     double speedMultiplier;
@@ -70,9 +66,6 @@ public class CompleteDrive extends OpMode{
 
         leftWheel.setDirection(DcMotor.Direction.FORWARD);
         rightWheel.setDirection(DcMotor.Direction.REVERSE);
-
-        //Initialize color sensor
-        color = hardwareMap.get(ColorSensor.class, "color");
 
         //Initialize the variables
         speedMultiplier = 1;
@@ -135,9 +128,7 @@ public class CompleteDrive extends OpMode{
         //Display runtime
         telemetry.addData("Runtime: ", getRuntime());
         telemetry.addData("speed multiplier: ", speedMultiplier);
-        telemetry.addData("red: ", color.red());
-        telemetry.addData("blue: ", color.blue());
-        telemetry.addData("green: ", color.green());
+
     }
 
     public void setAllDriveMotorPower(double power) {
