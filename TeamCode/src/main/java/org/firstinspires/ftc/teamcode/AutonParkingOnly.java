@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutonParkingOnly", group="Autonomous")
@@ -19,6 +20,10 @@ public class AutonParkingOnly extends LinearOpMode {
     DcMotor leftWheel; //port 2
     DcMotor rightWheel; //port 1
 
+    //Servos
+    Servo leftHook; //port 0
+    Servo rightHook; //port 1
+
     //Constants
     final double secondsPerCm = 0.00576923076;
 
@@ -33,6 +38,10 @@ public class AutonParkingOnly extends LinearOpMode {
 
         leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
         rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
+
+        //Initialize servos
+        leftHook = hardwareMap.get(Servo.class, "leftHook");
+        rightHook = hardwareMap.get(Servo.class, "rightHook");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -51,6 +60,10 @@ public class AutonParkingOnly extends LinearOpMode {
 
         leftWheel.setDirection(DcMotor.Direction.FORWARD);
         rightWheel.setDirection(DcMotor.Direction.REVERSE);
+
+        //Set direction of the Servos
+        leftHook.setDirection(Servo.Direction.REVERSE);
+        rightHook.setDirection(Servo.Direction.FORWARD);
 
         //Tell user that initialization is complete
         telemetry.addData("Status", "Initialized");

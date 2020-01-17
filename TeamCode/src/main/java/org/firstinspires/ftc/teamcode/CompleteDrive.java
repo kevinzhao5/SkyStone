@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -14,7 +15,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
         Press A to toggle speed multiplier
 
     Gamepad2(Intake):
-        Right joystick (move in y direction) to spin intake wheels
+        Left joystick (move in y direction) to spin intake wheels
+        Right joystick (move in y direction) to move hooks
 
 */
 
@@ -33,6 +35,10 @@ public class CompleteDrive extends OpMode{
     DcMotor leftWheel; //port 2
     DcMotor rightWheel; //port 1
 
+    //Servos
+    Servo leftHook; //port 0
+    Servo rightHook; //port 1
+
     //Variables
     double speedMultiplier;
     boolean aPressed;
@@ -48,6 +54,10 @@ public class CompleteDrive extends OpMode{
 
         leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
         rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
+
+        //Initialize servos
+        leftHook = hardwareMap.get(Servo.class, "leftHook");
+        rightHook = hardwareMap.get(Servo.class, "rightHook");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -66,6 +76,10 @@ public class CompleteDrive extends OpMode{
 
         leftWheel.setDirection(DcMotor.Direction.FORWARD);
         rightWheel.setDirection(DcMotor.Direction.REVERSE);
+
+        //Set direction of the Servos
+        leftHook.setDirection(Servo.Direction.REVERSE);
+        rightHook.setDirection(Servo.Direction.FORWARD);
 
         //Initialize the variables
         speedMultiplier = 1;
@@ -124,6 +138,10 @@ public class CompleteDrive extends OpMode{
         //Control wheels
         leftWheel.setPower(gamepad2.left_stick_y);
         rightWheel.setPower(gamepad2.left_stick_y);
+
+        //Control hooks
+        leftHook.setPosition(gamepad2.right_stick_y);
+        rightHook.setPosition(gamepad2.right_stick_y);
 
         //Display runtime
         telemetry.addData("Runtime: ", getRuntime());
