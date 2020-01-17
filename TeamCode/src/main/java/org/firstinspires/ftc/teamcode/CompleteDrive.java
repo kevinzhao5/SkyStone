@@ -140,8 +140,8 @@ public class CompleteDrive extends OpMode{
         rightWheel.setPower(gamepad2.left_stick_y);
 
         //Control hooks
-        leftHook.setPosition(gamepad2.right_stick_y);
-        rightHook.setPosition(gamepad2.right_stick_y);
+        leftHook.setPosition(gamepad2.right_stick_y / 2 + 0.5);
+        rightHook.setPosition(gamepad2.right_stick_y / 2 + 0.5);
 
         //Display runtime
         telemetry.addData("Runtime: ", getRuntime());
