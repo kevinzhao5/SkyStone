@@ -26,6 +26,7 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
     //Constants
     final double secondsPerCm = 0.00576923076;
+    final double secondsPerDegree = 0.0;
 
     @Override
     public void runOpMode() {
@@ -107,6 +108,18 @@ public class AutonRedMoveFoundation extends LinearOpMode {
         rightFront.setPower(power);
         leftBack.setPower(power);
         rightBack.setPower(power);
+    }
+
+    public void turnRight(double degrees) {
+        setAllDriveMotorPower(-1);
+        pause(degrees * secondsPerDegree);
+        setAllDriveMotorPower(0);
+    }
+
+    public void turnLeft(double degrees) {
+        setAllDriveMotorPower(1);
+        pause(degrees * secondsPerDegree);
+        setAllDriveMotorPower(0);
     }
 
     public void drive(double x, double y) {
