@@ -52,8 +52,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="AutonRedSkystone", group="Autonomous")
-public class AutonRedSkystone extends LinearOpMode {
+@Autonomous(name="AutonBlueSkystone", group="Autonomous")
+public class AutonBlueSkystone extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -323,7 +323,7 @@ public class AutonRedSkystone extends LinearOpMode {
 
         pause(0.2);
 
-        //based on which block drive forward a certain distance
+        //based on which block drive backward a certain distance
 
         pause(0.2);
 
@@ -332,7 +332,7 @@ public class AutonRedSkystone extends LinearOpMode {
 
         pause(0.2);
 
-        driveBackward(30, 0.5);
+        driveForward(30, 0.5);
 
         pause(0.2);
 
