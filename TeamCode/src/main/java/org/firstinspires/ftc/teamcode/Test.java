@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonRedMoveFoundation", group="Autonomous")
-public class AutonRedMoveFoundation extends LinearOpMode {
+@Autonomous(name="Test", group="Autonomous")
+public class Test extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -25,7 +25,7 @@ public class AutonRedMoveFoundation extends LinearOpMode {
     Servo rightHook; //port 1
 
     //Constants
-    final double secondsPerCm = 0.00576923076;
+    final double secondsPerCm = 0.01775147926;
 
     @Override
     public void runOpMode() {
@@ -70,35 +70,7 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(57.79, 0.5);
-
-        pause(0.2);
-
-        driveLeft(72.79, 0.5);
-
-        pause(0.2);
-
-        leftHook.setPosition(1);
-        rightHook.setPosition(1);
-
-        pause(0.2);
-
-        driveRight(100, 0.2);
-
-        pause(0.2);
-
-        leftHook.setPosition(0);
-        rightHook.setPosition(0);
-
-        pause(0.2);
-
-        driveLeft(5, 0.2);
-
-        pause(0.2);
-
-        driveBackward(115.58, 0.5);
-
-        pause(0.2);
+        driveForward(100, 0.5);
 
     }
 
