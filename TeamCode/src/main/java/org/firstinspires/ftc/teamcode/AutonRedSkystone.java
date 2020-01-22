@@ -261,6 +261,8 @@ public class AutonRedSkystone extends LinearOpMode {
 
         waitForStart();
 
+        double X = 0, Y = 0, Z = 0;
+
         targetsSkyStone.activate();
         while (!isStopRequested()) {
             targetVisible = false;
@@ -278,16 +280,22 @@ public class AutonRedSkystone extends LinearOpMode {
             }
             if (targetVisible) {
                 VectorF translation = lastLocation.getTranslation();
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
-
+                X = translation.get(0) / mmPerInch;
+                Y = translation.get(1) / mmPerInch;
+                Z = translation.get(2) / mmPerInch;
+                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f", X, Y, Z);
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                break;
             } else {
                 telemetry.addData("Visible Target", "none");
             }
             telemetry.update();
         }
+
+        targetsSkyStone.deactivate();
+
+        
 
     }
 
