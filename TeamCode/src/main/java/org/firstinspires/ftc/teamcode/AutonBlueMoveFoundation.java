@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutonBlueMoveFoundation", group="Autonomous")
-public class l/AutonBlueMoveFoundation extends LinearOpMode {
+public class AutonBlueMoveFoundation extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
