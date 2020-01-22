@@ -295,7 +295,7 @@ public class AutonRedSkystone extends LinearOpMode {
 
         targetsSkyStone.deactivate();
 
-
+        
 
     }
 
