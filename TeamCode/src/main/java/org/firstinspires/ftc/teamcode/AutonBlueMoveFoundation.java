@@ -25,7 +25,7 @@ public class AutonBlueMoveFoundation extends LinearOpMode {
     Servo rightHook; //port 1
 
     //Constants
-    final double secondsPerCm = 0.00576923076;
+    final double secondsPerCm = 0.00887573963;
     final double secondsPerDegree = 0.0;
 
     @Override
