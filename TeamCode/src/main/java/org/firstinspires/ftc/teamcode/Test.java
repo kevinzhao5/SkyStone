@@ -26,7 +26,7 @@ public class Test extends LinearOpMode {
 
     //Constants
     final double secondsPerCm = 0.00632807994;
-    final double secondsPerDegree = 0.006;
+    final double secondsPerDegree = 0.00515;
 
     @Override
     public void runOpMode() {

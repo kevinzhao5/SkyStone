@@ -71,20 +71,20 @@ public class AutonBlueMoveFoundation extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(60, 0.5);
+        driveForward(90, 0.5);
 
         pause(0.2);
 
-        driveRight(75, 0.5);
+        driveRight(85, 0.5);
 
         pause(0.2);
 
         leftHook.setPosition(1);
         rightHook.setPosition(1);
 
-        pause(0.2);
+        pause(0.8);
 
-        driveLeft(100, 0.2);
+        driveLeft(210, 0.2);
 
         pause(0.2);
 
@@ -93,7 +93,7 @@ public class AutonBlueMoveFoundation extends LinearOpMode {
 
         pause(0.2);
 
-        driveRight(5, 0.2);
+        driveRight(20, 0.2);
 
         pause(0.2);
 
