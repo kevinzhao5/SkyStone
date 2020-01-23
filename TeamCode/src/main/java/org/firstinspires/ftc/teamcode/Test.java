@@ -25,7 +25,8 @@ public class Test extends LinearOpMode {
     Servo rightHook; //port 1
 
     //Constants
-    final double secondsPerCm = 0.00887573963;
+    final double secondsPerCm = 0.00632807994;
+    final double secondsPerDegree = 0.006;
 
     @Override
     public void runOpMode() {
@@ -70,7 +71,7 @@ public class Test extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(100, 0.5);
+        turnRight(90);
 
     }
 
@@ -79,6 +80,18 @@ public class Test extends LinearOpMode {
         rightFront.setPower(power);
         leftBack.setPower(power);
         rightBack.setPower(power);
+    }
+
+    public void turnRight(double degrees) {
+        setAllDriveMotorPower(-1);
+        pause(degrees * secondsPerDegree);
+        setAllDriveMotorPower(0);
+    }
+
+    public void turnLeft(double degrees) {
+        setAllDriveMotorPower(1);
+        pause(degrees * secondsPerDegree);
+        setAllDriveMotorPower(0);
     }
 
     public void drive(double x, double y) {

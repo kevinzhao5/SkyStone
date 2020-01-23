@@ -25,7 +25,7 @@ public class AutonRedMoveFoundation extends LinearOpMode {
     Servo rightHook; //port 1
 
     //Constants
-    final double secondsPerCm = 0.00887573963;
+    final double secondsPerCm = 0.00632807994;
     final double secondsPerDegree = 0.0;
 
     @Override
@@ -71,20 +71,20 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(60, 0.5);
+        driveForward(90, 0.5);
 
         pause(0.2);
 
-        driveLeft(75, 0.5);
+        driveLeft(85, 0.5);
 
         pause(0.2);
 
         leftHook.setPosition(1);
         rightHook.setPosition(1);
 
-        pause(0.2);
+        pause(0.8);
 
-        driveRight(100, 0.2);
+        driveRight(210, 0.2);
 
         pause(0.2);
 
@@ -93,7 +93,7 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
         pause(0.2);
 
-        driveLeft(5, 0.2);
+        driveLeft(20, 0.2);
 
         pause(0.2);
 
