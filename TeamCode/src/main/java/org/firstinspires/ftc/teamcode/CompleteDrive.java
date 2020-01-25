@@ -38,6 +38,7 @@ public class CompleteDrive extends OpMode{
     //Servos
     Servo leftHook; //port 0
     Servo rightHook; //port 1
+    Servo blockPush; // port 2
 
     //Variables
     double speedMultiplier;
@@ -58,6 +59,8 @@ public class CompleteDrive extends OpMode{
         //Initialize servos
         leftHook = hardwareMap.get(Servo.class, "leftHook");
         rightHook = hardwareMap.get(Servo.class, "rightHook");
+        blockPush = hardwareMap.get(Servo.class, "blockPush");
+
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -79,6 +82,7 @@ public class CompleteDrive extends OpMode{
 
         //Set direction of the Servos
         leftHook.setDirection(Servo.Direction.REVERSE);
+        rightHook.setDirection(Servo.Direction.FORWARD);
         rightHook.setDirection(Servo.Direction.FORWARD);
 
         //Initialize the variables
@@ -148,6 +152,15 @@ public class CompleteDrive extends OpMode{
             rightHook.setPosition(0);
         }
 
+
+        if(gamepad2.a)
+        {
+            blockPush.setPosition(0);
+        }
+        else
+        {
+            blockPush.setPosition(0.5);
+        }
         //Display runtime
         telemetry.addData("Runtime: ", getRuntime());
         telemetry.addData("speed multiplier: ", speedMultiplier);
