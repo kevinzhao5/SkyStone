@@ -262,7 +262,13 @@ public class AutonRedSkystone extends LinearOpMode {
 
         waitForStart();
 
+        driveForward(60, 0.5);
+
         double X = 0, Y = 0, Z = 0;
+
+        drive(-1, 0);
+
+        long initTime = System.nanoTime();
 
         targetsSkyStone.activate();
         while (!isStopRequested()) {
@@ -296,13 +302,11 @@ public class AutonRedSkystone extends LinearOpMode {
 
         targetsSkyStone.deactivate();
 
-        pause(0.2);
+        setAllDriveMotorPower(0);
 
-        //based on which block drive left or right
+        long finalTime = System.nanoTime();
 
-        pause(0.2);
-
-        driveForward(60, 0.5);
+        double time = (finalTime - initTime) / (1000000000);
 
         pause(0.2);
 
@@ -310,20 +314,22 @@ public class AutonRedSkystone extends LinearOpMode {
 
         pause(0.2);
 
-        driveLeft(60, 0.5);
+        driveBackward(10, 0.5);
 
         pause(0.2);
+
+        driveLeft(15, 0.2);
 
         leftHook.setPosition(1);
         rightHook.setPosition(1);
 
-        pause(0.2);
+        pause(0.8);
 
         driveRight(15, 0.5);
 
         pause(0.2);
 
-        //based on which block drive forward a certain distance
+        driveForward(110 + time / secondsPerCm, 0.5);
 
         pause(0.2);
 
@@ -332,7 +338,7 @@ public class AutonRedSkystone extends LinearOpMode {
 
         pause(0.2);
 
-        driveBackward(30, 0.5);
+        driveBackward(40, 0.5);
 
         pause(0.2);
 
