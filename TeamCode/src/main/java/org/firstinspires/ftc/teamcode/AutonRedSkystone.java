@@ -262,7 +262,7 @@ public class AutonRedSkystone extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(60, 0.5);
+        driveForward(50, 0.5);
 
         double X = 0, Y = 0, Z = 0;
 
@@ -307,6 +307,10 @@ public class AutonRedSkystone extends LinearOpMode {
         long finalTime = System.nanoTime();
 
         double time = (finalTime - initTime) / (1000000000);
+
+        pause(0.2);
+
+        driveForward(10 ,0.5);
 
         pause(0.2);
 

@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonBlueMoveFoundation", group="Autonomous")
-public class AutonBlueMoveFoundation extends LinearOpMode {
+@Autonomous(name="AutonRedStones", group="Autonomous")
+public class AutonRedStones extends LinearOpMode {
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -71,31 +71,11 @@ public class AutonBlueMoveFoundation extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(10, 0.5);
+        driveBackward(15, 0.5);
 
         pause(0.2);
 
-        driveLeft(120, 0.5);
-
-        pause(0.2);
-
-        driveBackward(175, 0.2);
-
-        pause(0.2);
-
-        driveForward(5, 0.2);
-
-        pause(0.2);
-
-        driveRight(65, 0.5);
-
-        pause(0.2);
-
-        driveBackward(80, 0.5);
-
-        pause(0.2);
-
-        driveLeft(25, 0.2);
+        driveLeft(100, 0.2);
 
         pause(0.2);
 
@@ -104,7 +84,15 @@ public class AutonBlueMoveFoundation extends LinearOpMode {
 
         pause(0.8);
 
-        driveRight(210, 0.2);
+        driveRight(50, 0.5);
+
+        pause(0.2);
+
+        driveLeft(10, 0.5);
+
+        pause(0.2);
+
+        driveForward(150, 0.5);
 
         pause(0.2);
 
@@ -113,19 +101,11 @@ public class AutonBlueMoveFoundation extends LinearOpMode {
 
         pause(0.2);
 
-        driveLeft(10, 0.2);
+        driveRight(10, 0.5);
 
         pause(0.2);
 
-        driveForward(120, 0.5);
-
-        pause(0.2);
-
-        driveLeft(70, 0.5);
-
-        pause(0.2);
-
-        driveForward(42, 0.5);
+        driveBackward(70, 0.5);
 
         pause(0.2);
 

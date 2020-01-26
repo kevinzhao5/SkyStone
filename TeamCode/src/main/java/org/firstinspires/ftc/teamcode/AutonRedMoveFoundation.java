@@ -117,7 +117,15 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
         pause(0.2);
 
-        driveBackward(162, 0.5);
+        driveBackward(120, 0.5);
+
+        pause(0.2);
+
+        driveLeft(70, 0.5);
+
+        pause(0.2);
+
+        driveBackward(42, 0.5);
 
         pause(0.2);
 

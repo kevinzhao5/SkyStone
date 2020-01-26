@@ -25,7 +25,7 @@ public class AutonParkingOnly extends LinearOpMode {
     Servo rightHook; //port 1
 
     //Constants
-    final double secondsPerCm = 0.00576923076;
+    final double secondsPerCm = 0.00632807994;
 
     @Override
     public void runOpMode() {
@@ -70,7 +70,11 @@ public class AutonParkingOnly extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(130, 0.5);
+        driveLeft(70, 0.5);
+
+        pause(0.2);
+
+        driveBackward(60, 0.5);
 
     }
 
