@@ -73,7 +73,7 @@ public class AutonRedSkystone extends LinearOpMode {
 
     //Constants
     final double secondsPerCm = 0.00632807994;
-    final double secondsPerDegree = 0.0;
+    final double secondsPerDegree = 0.00515;
 
     //For CV
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -262,11 +262,11 @@ public class AutonRedSkystone extends LinearOpMode {
 
         waitForStart();
 
-        driveForward(60, 0.5);
+        driveForward(50, 0.5);
 
         double X = 0, Y = 0, Z = 0;
 
-        drive(-1, 0);
+        drive(-0.1, 0);
 
         long initTime = System.nanoTime();
 
@@ -307,6 +307,10 @@ public class AutonRedSkystone extends LinearOpMode {
         long finalTime = System.nanoTime();
 
         double time = (finalTime - initTime) / (1000000000);
+
+        pause(0.2);
+
+        driveForward(10 ,0.5);
 
         pause(0.2);
 

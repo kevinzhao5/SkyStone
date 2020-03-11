@@ -26,7 +26,7 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
     //Constants
     final double secondsPerCm = 0.00632807994;
-    final double secondsPerDegree = 0.0;
+    final double secondsPerDegree = 0.00515;
 
     @Override
     public void runOpMode() {
@@ -117,7 +117,15 @@ public class AutonRedMoveFoundation extends LinearOpMode {
 
         pause(0.2);
 
-        driveBackward(162, 0.5);
+        driveBackward(120, 0.5);
+
+        pause(0.2);
+
+        driveLeft(70, 0.5);
+
+        pause(0.2);
+
+        driveBackward(42, 0.5);
 
         pause(0.2);
 

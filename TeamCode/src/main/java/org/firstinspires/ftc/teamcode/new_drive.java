@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonParkingOnly", group="Autonomous")
-public class AutonParkingOnly extends LinearOpMode {
+@TeleOp(name="CompleteDrive", group="OpMode")
+public class new_drive extends OpMode{
 
     //Objects
     ElapsedTime runtime = new ElapsedTime();
@@ -20,15 +19,12 @@ public class AutonParkingOnly extends LinearOpMode {
     DcMotor leftWheel; //port 2
     DcMotor rightWheel; //port 1
 
-    //Servos
-    Servo leftHook; //port 0
-    Servo rightHook; //port 1
-
-    //Constants
-    final double secondsPerCm = 0.00632807994;
+    //Variables
+    double speedMultiplier;
+    boolean aPressed;
 
     @Override
-    public void runOpMode() {
+    public void init() {
 
         //Initialize DcMotors
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
@@ -38,10 +34,6 @@ public class AutonParkingOnly extends LinearOpMode {
 
         leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
         rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
-
-        //Initialize servos
-        leftHook = hardwareMap.get(Servo.class, "leftHook");
-        rightHook = hardwareMap.get(Servo.class, "rightHook");
 
         //Set zero power behavior
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -61,33 +53,27 @@ public class AutonParkingOnly extends LinearOpMode {
         leftWheel.setDirection(DcMotor.Direction.FORWARD);
         rightWheel.setDirection(DcMotor.Direction.REVERSE);
 
-        //Set direction of the Servos
-        leftHook.setDirection(Servo.Direction.REVERSE);
-        rightHook.setDirection(Servo.Direction.FORWARD);
+        //Initialize the variables
+        speedMultiplier = 1;
+        aPressed = false;
 
         //Tell user that initialization is complete
         telemetry.addData("Status", "Initialized");
 
-        waitForStart();
-
-        driveLeft(70, 0.5);
-
-        pause(0.2);
-
-        driveBackward(60, 0.5);
-
     }
 
-    public void setAllDriveMotorPower(double power) {
-        leftFront.setPower(power);
-        rightFront.setPower(power);
-        leftBack.setPower(power);
-        rightBack.setPower(power);
+    @Override
+    public void start() {
+        runtime.reset();
     }
 
-    public void drive(double x, double y) {
+    @Override
+    public void loop() {
+        //Drive the robot
 
         //Normalize the values if the sum is greater than one to fit motor power
+        double x = gamepad1.left_stick_x;
+        double y = gamepad1.left_stick_y;
         double sum = Math.abs(x) + Math.abs(y);
 
         if (sum > 1) {
@@ -96,43 +82,45 @@ public class AutonParkingOnly extends LinearOpMode {
             y = newy;
         }
 
+        x *= speedMultiplier;
+        y *= speedMultiplier;
+
         //Driving
         leftFront.setPower(-x + y);
         rightFront.setPower(-x - y);
         leftBack.setPower(x + y);
         rightBack.setPower(x - y);
-    }
 
-    public void pause(double s) {
-        long initTime = System.nanoTime();
-        s *= 1000000000;
-        while (System.nanoTime() < initTime + s) {
-
+        //Turning
+        if (Math.abs(gamepad1.right_stick_x) >= 0.000001) {
+            setAllDriveMotorPower(-gamepad1.right_stick_x);
         }
+
+        //If A is not pressed
+        if (!gamepad1.a) {
+            aPressed = false;
+        }
+
+        //Toggle the speed multiplier
+        if (gamepad1.a && !aPressed) {
+            speedMultiplier = 1.2 - speedMultiplier;
+            aPressed = true;
+        }
+
+        //Control wheels
+        leftWheel.setPower(gamepad2.left_stick_y);
+        rightWheel.setPower(gamepad2.left_stick_y);
+
+        //Display runtime
+        telemetry.addData("Runtime: ", getRuntime());
+
     }
 
-    public void driveForward(double cm, double power) {
-        drive(0, -power);
-        pause(cm * secondsPerCm * (1 / power));
-        setAllDriveMotorPower(0);
-    }
-
-    public void driveBackward(double cm, double power) {
-        drive(0, power);
-        pause(cm * secondsPerCm * (1 / power));
-        setAllDriveMotorPower(0);
-    }
-
-    public void driveLeft(double cm, double power) {
-        drive(-power, 0);
-        pause(cm * secondsPerCm * (1 / power));
-        setAllDriveMotorPower(0);
-    }
-
-    public void driveRight(double cm, double power) {
-        drive(power, 0);
-        pause(cm * secondsPerCm * (1 / power));
-        setAllDriveMotorPower(0);
+    public void setAllDriveMotorPower(double power) {
+        leftFront.setPower(power);
+        rightFront.setPower(power);
+        leftBack.setPower(power);
+        rightBack.setPower(power);
     }
 
 }
